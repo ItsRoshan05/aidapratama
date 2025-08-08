@@ -10,9 +10,6 @@
 
     <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
         <!-- Logo -->
-<div class="flex justify-center mb-6">
-    <img src="/img/logodrhpolos.png" alt="Logo GrosirApp" class="h-14 w-auto">
-</div>
 
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">AIDA PRATAMA</h2>
 
