@@ -11,16 +11,30 @@
     {{-- DataTables + Lucide CSS --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
     
-    
+    <style>
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 
     @yield('styles')
 
 </head>
 <body class="bg-snow text-gray-800">
-    {{-- PRELOADER --}}
-    <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-300">
-        <img src="{{ asset('img/logodrhpolos.png') }}" alt="Loading..." class="w-16 h-16 animate-pulse">
-    </div>
+{{-- PRELOADER --}}
+<div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-300">
+    <div class="loader"></div>
+</div>
 
     {{-- Main Layout --}}
     <div class="flex min-h-screen">
