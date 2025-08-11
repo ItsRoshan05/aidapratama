@@ -38,7 +38,6 @@
                     <td class="px-4 py-3">{{ $user->email }}</td>
                     <td class="px-4 py-3">
                         <div class="flex justify-center space-x-3 text-gray-500">
-                            <a href="{{ route('admin.users.show', $user->id) }}" title="Lihat"><i data-lucide="eye" class="w-4 h-4 hover:text-blue-500 transition"></i></a>
                             <a href="{{ route('admin.users.edit', $user->id) }}" title="Edit"><i data-lucide="edit-3" class="w-4 h-4 hover:text-green-500 transition"></i></a>
                             <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline">
                                 @csrf @method('DELETE')
