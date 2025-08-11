@@ -43,8 +43,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('admin/laporan-penjualan/excel', [LaporanPenjualanController::class, 'exportExcel'])->name('laporan-penjualan.excel');
 }); 
 
-
-// Testing
-Route::view('/dashboard', 'dashboard');
-Route::view('/customers', 'admin.customers.index');
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('auth');
