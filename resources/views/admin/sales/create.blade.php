@@ -29,15 +29,18 @@
                 <label class="text-sm text-gray-600">Tanggal Penjualan</label>
                 <input type="date" name="sale_date" class="w-full border px-3 py-2 rounded" required value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
             </div>
-            <div>
-                <label class="text-sm text-gray-600">Customer (Opsional)</label>
-                <select name="customer_id" class="w-full border px-3 py-2 rounded">
-                    <option value="">Pilih Customer</option>
-                    @foreach ($customers as $customer)
-                        <option value="{{ $customer->id }}" {{ old('customer_id') == $customer->id ? 'selected' : '' }}>{{ $customer->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+<div>
+    <label class="text-sm text-gray-600">Customer (Opsional)</label>
+    <select id="customer_id" name="customer_id" class="w-full border px-3 py-2 rounded customer-search">
+        <option value="">Pilih Customer</option>
+        @foreach ($customers as $customer)
+            <option value="{{ $customer->id }}" {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
+                {{ $customer->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
         </div>
 
     <div>
@@ -83,7 +86,6 @@
 @endsection
 
 @section('scripts')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 let index = 1;
 const products = @json($products->map(fn($p) => ['id' => $p->id, 'name' => $p->name, 'harga_jual' => $p->harga_jual]));
@@ -188,7 +190,7 @@ $(function() {
                     addTagBubble(tagValue);
                     tagHidden.value = tagValue;
                     tagInput.value = '';
-                    tagInput.classList.add('hidden'); // 🔒 hide input setelah 1 tag masuk
+                    tagInput.classList.add('hidden'); 
                 }
             }
         });
@@ -206,7 +208,7 @@ $(function() {
             bubble.querySelector('.remove-tag').addEventListener('click', () => {
                 bubble.remove();
                 tagHidden.value = '';
-                tagInput.classList.remove('hidden'); // 🔓 tampilkan kembali input jika bubble dihapus
+                tagInput.classList.remove('hidden'); 
             });
         }
 
@@ -214,9 +216,28 @@ $(function() {
         const initialTag = tagHidden.value;
         if (initialTag) {
             addTagBubble(initialTag);
-            tagInput.classList.add('hidden'); // hide input jika sudah ada tag saat page load
+            tagInput.classList.add('hidden'); 
         }
     });
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.customer-search').select2({
+        placeholder: 'Pilih Customer',
+        allowClear: true,
+        width: '100%',
+        height: '50px'
+    });
+    $('.product-select').select2({
+        placeholder: '-- Pilih Produk --',
+        allowClear: true,
+        width: '100%',
+        height: '30px'
+    });
+
+});
+
 </script>
 
 @endsection
