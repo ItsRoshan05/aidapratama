@@ -11,6 +11,13 @@
     {{-- DataTables + Lucide CSS --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
     
+
+    {{-- Search bar cdn --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Load CSS Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <style>
         .loader {
             width: 48px;
@@ -55,7 +62,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     {{-- jQuery harus paling pertama --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 
     {{-- DataTables --}}
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

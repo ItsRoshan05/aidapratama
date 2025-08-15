@@ -9,7 +9,7 @@
 
     <div class="mb-4">
         <label class="block font-medium">Suplier</label>
-        <select name="suplier_id" class="w-full border p-2 rounded">
+        <select name="suplier_id" class="suplier-search w-full border p-2 rounded">
             @foreach ($supliers as $s)
                 <option value="{{ $s->id }}">{{ $s->name }}</option>
             @endforeach
@@ -54,7 +54,6 @@
 
 @section('scripts')
 <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 let index = 1;
 let products = @json($products);
@@ -73,7 +72,7 @@ function getProductRow(idx) {
                 <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/></svg>
                 </span>
-                <select name="products[${idx}][product_id]" class="w-full border p-2 rounded focus:ring-2 focus:ring-blue-400">
+                <select name="products[${idx}][product_id]" class="product-search w-full border p-2 rounded focus:ring-2 focus:ring-blue-400">
                     ${getProductOptions()}
                 </select>
             </div>
@@ -137,5 +136,22 @@ $(function() {
         }
     });
 });
+</script>
+<script>
+    $(document).ready(function(){ 
+        $('.suplier-search').select2({
+            placeholder: 'Pilih Suplier',
+            allowClear: true,
+            width: '100%',
+            height: '30px'
+        });
+        $('.product-search').select2({
+            placeholder: 'Pilih Produk',
+            allowClear: true,
+            width: '100%',
+            height: '30px'
+        });
+
+    });
 </script>
 @endsection
