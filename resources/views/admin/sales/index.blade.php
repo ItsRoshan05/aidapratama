@@ -87,6 +87,9 @@
                     first: "Awal", last: "Akhir", next: "›", previous: "‹"
                 },
                 zeroRecords: "Tidak ada data ditemukan"
+            },
+            drawCallback: function () {
+                lucide.createIcons();
             }
         });
         lucide.createIcons();
