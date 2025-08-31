@@ -144,6 +144,13 @@ function getProductRow(idx) {
 function addProductRow() {
     $('#product-wrapper').append(getProductRow(index));
     index++;
+
+        $('.product-select').select2({
+        placeholder: '-- Pilih Produk --',
+        allowClear: true,
+        width: '100%',
+        height: '30px'
+    });
 }
 
 $(function() {
