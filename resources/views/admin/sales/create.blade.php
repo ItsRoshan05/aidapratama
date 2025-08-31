@@ -144,7 +144,7 @@ function getProductRow(idx) {
 function addProductRow() {
     $('#product-wrapper').append(getProductRow(index));
     index++;
-    
+        
         $('.product-select').select2({
         placeholder: '-- Pilih Produk --',
         allowClear: true,
