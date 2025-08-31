@@ -37,11 +37,11 @@ public function store(Request $request)
     $request->validate([
         'products' => 'required|array|min:1',
         'products.*.product_id' => 'required|exists:products,id',
-        'products.*.quantity' => 'required|integer|min:1',
+        'products.*.quantity' => 'required|numeric|min:1',
         'products.*.price' => 'required|numeric|min:0',
         'products.*.discount' => 'nullable|integer|min:0|max:100',
         'sale_date' => 'required|date',
-        'customer_id' => 'nullable|exists:customers,id',
+        'customer_id' => 'required|exists:customers,id',
         'note' => 'nullable|string|max:255',
         'term' => 'required|integer|in:0,7,15,30',
     ]);
