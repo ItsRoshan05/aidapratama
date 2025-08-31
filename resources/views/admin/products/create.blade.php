@@ -38,6 +38,11 @@
                 <option value="pack" {{ old('unit') == 'pack' ? 'selected' : '' }}>pack</option>
                 <option value="box" {{ old('unit') == 'box' ? 'selected' : '' }}>box</option>
                 <option value="lusin" {{ old('unit') == 'lusin' ? 'selected' : '' }}>lusin</option>
+                <option value="bungkus" {{ old('unit') == 'bungkus' ? 'selected' : '' }}>bungkus</option>
+                <option value="ball" {{ old('unit') == 'ball' ? 'selected' : '' }}>ball</option>
+                <option value="ikat" {{ old('unit') == 'ikat' ? 'selected' : '' }}>ikat</option>
+                <option value="ons" {{ old('unit') == 'ons' ? 'selected' : '' }}>ons</option>
+                <option value="gros" {{ old('unit') == 'gros' ? 'selected' : '' }}>gros</option>
             </select>
             @error('unit')
                 <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
