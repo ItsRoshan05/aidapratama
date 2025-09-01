@@ -108,10 +108,11 @@
         <td style="white-space: nowrap;">Jatuh Tempo</td>
         <td>: {{ \Carbon\Carbon::parse($sale->deadline_date)->format('d-m-Y') }}</td>
     </tr>
-    <tr>
-        <td style="white-space: nowrap;">Term</td>
-        <td>: Net{{ $sale->term }}</td>
-    </tr>
+<tr>
+    <td style="white-space: nowrap;">Term</td>
+    <td>: {{ $sale->term == 0 ? 'Cash' : 'Net' . $sale->term }}</td>
+</tr>
+
         </table>
     </div>
 </td>
