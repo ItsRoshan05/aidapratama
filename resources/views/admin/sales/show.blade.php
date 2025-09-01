@@ -12,7 +12,9 @@
         </div>
         <div>
             <div class="text-gray-600">Tanggal</div>
-            <div class="font-semibold">{{ $sale->sale_date }}</div>
+            <div class="font-semibold">
+                {{ \Carbon\Carbon::parse($sale->sale_date)->translatedFormat('d F Y') }}
+            </div>
         </div>
         <div>
             <div class="text-gray-600">Customer</div>
@@ -30,7 +32,9 @@
         </div>
         <div>
             <div class="text-gray-600">Jatuh Tempo</div>
-            <div class="font-semibold text-blue-700">{{ $sale->deadline_date }}</div>
+            <div class="font-semibold text-blue-700">
+                {{ \Carbon\Carbon::parse($sale->deadline_date)->translatedFormat('d F Y') }}
+            </div>
         </div>
                 <div>
             <div class="text-gray-600">Term</div>

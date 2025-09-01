@@ -62,7 +62,7 @@
 
             {{-- Info kontak di bagian paling bawah kiri --}}
             <div style="position: absolute; bottom: 0;">
-                <strong>Telp / Fax:</strong> 08129085160<br>
+                <strong></strong><br>
                 <strong>No Telp: 085624609832</strong> 
             </div>
         </td>
