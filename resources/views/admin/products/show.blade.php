@@ -6,22 +6,26 @@
 <div class="max-w-xl mx-auto bg-white p-6 rounded-md shadow">
     <h2 class="text-xl font-semibold mb-4 text-gray-800">Detail Produk</h2>
 
-    <div class="grid grid-cols-1 gap-4 text-sm text-gray-700">
-        @foreach ([
-            'Nama Produk' => $product->name,
-            'SKU' => $product->sku,
-            'Kategori' => $product->category,
-            'Harga Beli' => 'Rp ' . number_format($product->harga_beli, 0, ',', '.'),
-            'Harga Jual' => 'Rp ' . number_format($product->harga_jual, 0, ',', '.'),
-            'Stok' => $product->stock,
-            'Satuan' => $product->unit,
-        ] as $label => $value)
-        <div class="flex justify-between border-b pb-2">
-            <span class="font-medium">{{ $label }}</span>
-            <span>{{ $value }}</span>
-        </div>
-        @endforeach
-    </div>
+<div class="grid grid-cols-1 gap-4 text-sm text-gray-700">
+    @foreach ([
+        'Nama Produk' => $product->name,
+        'SKU' => $product->sku,
+        'Kategori' => $product->category,
+        // Harga Beli hanya untuk owner
+        'Harga Beli' => auth()->user()->role === 'owner' ? 'Rp ' . number_format($product->harga_beli, 0, ',', '.') : null,
+        'Harga Jual' => 'Rp ' . number_format($product->harga_jual, 0, ',', '.'),
+        'Stok' => $product->stock,
+        'Satuan' => $product->unit,
+    ] as $label => $value)
+        @if($value !== null) 
+            <div class="flex justify-between border-b pb-2">
+                <span class="font-medium">{{ $label }}</span>
+                <span>{{ $value }}</span>
+            </div>
+        @endif
+    @endforeach
+</div>
+
 
     <div class="mt-6">
         <a href="{{ route('admin.products.index') }}"
