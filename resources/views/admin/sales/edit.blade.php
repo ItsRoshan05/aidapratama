@@ -10,7 +10,7 @@
 
     <div class="mb-4">
         <label class="block font-medium">Customer</label>
-        <select name="customer_id" class="w-full border p-2 rounded">
+        <select id="customer_id" name="customer_id" class="customer-search w-full border p-2 rounded">
             <option value="">Pilih Customer</option>
             @foreach ($customers as $c)
                 <option value="{{ $c->id }}" @if($c->id == $sale->customer_id) selected @endif>{{ $c->name }}</option>
@@ -65,7 +65,8 @@
                     <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/></svg>
                     </span>
-                    <select name="products[{{ $idx }}][product_id]" class="w-full border p-2 rounded focus:ring-2 focus:ring-blue-400">
+                    <select name="products[{{ $idx }}][product_id]" class="product-select w-full border p-2 rounded focus:ring-2 focus:ring-blue-400" data-idx="{{ $idx }}">
+                        <option value="">-- Pilih Produk --</option>
                         @foreach ($products as $p)
                             <option value="{{ $p->id }}" @if($p->id == $item->product_id) selected @endif>{{ $p->name }}</option>
                         @endforeach
@@ -163,7 +164,7 @@
                         <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/></svg>
                         </span>
-                        <select name="products[${idx}][product_id]" class="w-full border p-2 rounded focus:ring-2 focus:ring-blue-400">
+                        <select name="products[${idx}][product_id]" class="product-select w-full border p-2 rounded focus:ring-2 focus:ring-blue-400" data-idx="${idx}">
                             ${getProductOptions()}
                         </select>
                     </div>
@@ -192,10 +193,17 @@
             `;
         }
 
-        function addProductRow() {
-            $('#product-wrapper').append(getProductRow(index));
-            index++;
-        }
+    function addProductRow() {
+        $('#product-wrapper').append(getProductRow(index));
+        index++;
+            
+            $('.product-select').select2({
+            placeholder: '-- Pilih Produk --',
+            allowClear: true,
+            width: '100%',
+            height: '30px'
+        });
+    }
 
         $('#add-product-btn').on('click', function(e) {
             e.preventDefault();
@@ -206,5 +214,24 @@
             $(this).closest('.grid').remove();
         });
     });
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.customer-search').select2({
+        placeholder: 'Pilih Customer',
+        allowClear: true,
+        width: '100%',
+        height: '50px'
+    });
+    $('.product-select').select2({
+        placeholder: '-- Pilih Produk --',
+        allowClear: true,
+        width: '100%',
+        height: '30px'
+    });
+
+});
+
 </script>
 @endsection
