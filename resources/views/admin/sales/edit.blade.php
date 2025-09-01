@@ -41,6 +41,16 @@
     </div>
 
     <div class="mb-4">
+        <label class="block font-medium">Term Pembayaran</label>
+        <select name="term" class="w-full border p-2 rounded" required>
+            <option value="0" {{ $sale->term == '0' ? 'selected' : '' }}>Cash</option>
+            <option value="7" {{ $sale->term == '7' ? 'selected' : '' }}>Net7</option>
+            <option value="15" {{ $sale->term == '15' ? 'selected' : '' }}>Net15</option>
+            <option value="30" {{ $sale->term == '30' ? 'selected' : '' }}>Net30</option>
+        </select>
+    </div>
+
+    <div class="mb-4">
         <label class="block font-medium">Produk</label>
         <div class="flex flex-wrap gap-3 mb-2 justify-end">
             <button type="button" id="add-product-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow transition flex items-center gap-2">
