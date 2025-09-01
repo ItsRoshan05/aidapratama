@@ -127,67 +127,75 @@ public function store(Request $request)
     }
 
     public function update(Request $request, $id){
-     
-        $request->validate([
-            'products' => 'required|array|min:1',
-            'products.*.product_id' => 'required|exists:products,id',
-            'products.*.quantity' => 'required|numeric|min:1',
-            'products.*.price' => 'required|integer|min:0',
-            'products.*.discount' => 'nullable|integer|min:0|max:100',
-            'sale_date' => 'required|date',
-            'customer_id' => 'nullable|exists:customers,id',
-            'tag' => 'nullable|string|max:255',
+ 
+    $request->validate([
+        'products' => 'required|array|min:1',
+        'products.*.product_id' => 'required|exists:products,id',
+        'products.*.quantity' => 'required|numeric|min:1',
+        'products.*.price' => 'required|integer|min:0',
+        'products.*.discount' => 'nullable|integer|min:0|max:100',
+        'sale_date' => 'required|date',
+        'customer_id' => 'nullable|exists:customers,id',
+        'tag' => 'nullable|string|max:255',
+        'term' => 'required|integer|in:0,7,15,30', // tambahkan validasi term
+    ]);
+
+    $sale = Sale::with('items')->findOrFail($id);
+
+    // Rollback stok lama
+    foreach ($sale->items as $item) {
+        $product = Product::find($item->product_id);
+        if ($product) {
+            $product->increment('stock', $item->quantity);
+        }
+    }
+
+    // Hitung deadline_date baru
+    $saleDate = \Carbon\Carbon::parse($request->sale_date);
+    $term = (int) $request->term;
+    $deadlineDate = $saleDate->copy()->addDays($term);
+
+    $sale->update([
+        'customer_id' => $request->customer_id,
+        'tag' => $request->tag,
+        'sale_date' => $saleDate,
+        'term' => $term,
+        'deadline_date' => $deadlineDate,
+        'note' => $request->note,
+    ]);
+
+    // Hapus item lama
+    $sale->items()->delete();
+
+    $total = 0;
+    foreach ($request->products as $item) {
+        $qty = $item['quantity'];
+        $price = $item['price'];
+        $discount = $item['discount'] ?? 0;
+
+        $subtotal = ($price * $qty) - (($price * $qty * $discount) / 100);
+        $total += $subtotal;
+
+        SaleItem::create([
+            'sale_id' => $sale->id,
+            'product_id' => $item['product_id'],
+            'quantity' => $qty,
+            'price' => $price,
+            'discount' => $discount,
+            'subtotal' => $subtotal,
         ]);
 
-        $sale = Sale::with('items')->findOrFail($id);
-
-        // Rollback stok lama
-        foreach ($sale->items as $item) {
-            $product = Product::find($item->product_id);
-            if ($product) {
-                $product->increment('stock', $item->quantity);
-            }
+        // Kurangi stok produk
+        $product = Product::find($item['product_id']);
+        if ($product) {
+            $product->decrement('stock', $qty);
         }
+    }
 
-        $sale->update([
-            'customer_id' => $request->customer_id,
-            'tag' => $request->tag,
-            'sale_date' => $request->sale_date,
-            'note' => $request->note,
-        ]);
+    // Update total penjualan
+    $sale->update(['total' => $total]);
 
-        // Hapus item lama
-        $sale->items()->delete();
-
-        $total = 0;
-        foreach ($request->products as $item) {
-            $qty = $item['quantity'];
-            $price = $item['price'];
-            $discount = $item['discount'] ?? 0;
-
-            $subtotal = ($price * $qty) - (($price * $qty * $discount) / 100);
-            $total += $subtotal;
-
-            SaleItem::create([
-                'sale_id' => $sale->id,
-                'product_id' => $item['product_id'],
-                'quantity' => $qty,
-                'price' => $price,
-                'discount' => $discount,
-                'subtotal' => $subtotal,
-            ]);
-
-            // Kurangi stok produk
-            $product = Product::find($item['product_id']);
-            if ($product) {
-                $product->decrement('stock', $qty);
-            }
-        }
-
-        // Update total penjualan
-        $sale->update(['total' => $total]);
-
-        return redirect()->route('admin.sales.index')->with('success', 'Penjualan berhasil diperbarui.');
+    return redirect()->route('admin.sales.index')->with('success', 'Penjualan berhasil diperbarui.');
     }
 
     public function destroy($id)
