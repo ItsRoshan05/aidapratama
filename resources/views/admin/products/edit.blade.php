@@ -32,7 +32,7 @@
         <div>
             <label for="unit" class="block text-sm text-gray-600 mb-1">Satuan</label>
             <select name="unit" id="unit" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500">
-                @foreach(['pcs', 'dus', 'kg', 'liter', 'pack', 'box', 'lusin', 'bungkus', 'ball', 'ikat', 'ons', 'gros'] as $unit)
+                @foreach(['pcs', 'dus', 'kg', 'liter', 'pack', 'box', 'lusin', 'bungkus', 'ball', 'ikat', 'ons', 'gros','bks'] as $unit)
                     <option value="{{ $unit }}" {{ old('unit', $product->unit) == $unit ? 'selected' : '' }}>{{ ucfirst($unit) }}</option>
                 @endforeach
             </select>

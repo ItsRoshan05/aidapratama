@@ -43,6 +43,7 @@
                 <option value="ikat" {{ old('unit') == 'ikat' ? 'selected' : '' }}>ikat</option>
                 <option value="ons" {{ old('unit') == 'ons' ? 'selected' : '' }}>ons</option>
                 <option value="gros" {{ old('unit') == 'gros' ? 'selected' : '' }}>gros</option>
+                <option value="bks" {{ old('unit') == 'bks' ? 'selected' : '' }}>bks</option>
             </select>
             @error('unit')
                 <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
