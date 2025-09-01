@@ -36,7 +36,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:100',
             'sku' => 'nullable|string|max:50|unique:products,sku',
             'category' => 'nullable|string|max:50',
-            'harga_beli' => 'nullabel|numeric',
+            'harga_beli' => 'required|numeric',
             'harga_jual' => 'required|numeric',
             'stock' => 'integer|min:0',
             'unit' => 'string|max:20',
