@@ -34,12 +34,14 @@
         <!-- Section: Master Data -->
         <div>
             <span x-show="open" class="text-xs uppercase tracking-wider text-[#64748b] px-3 transition-all duration-300">Master Data</span>
+            @if(Auth::user()->role === 'owner')
             <a href="{{route('admin.products.index')}}" class="flex items-center space-x-3 py-2 px-3 rounded hover:bg-[#2333a0] mt-1">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V7a2 2 0 0 0-2-2h-4M4 17V7a2 2 0 0 1 2-2h4m4 0v6M4 17h16M4 21h16" />
                 </svg>
                 <span x-show="open" x-transition:enter="transition-all duration-300" x-transition:enter-start="opacity-0 -translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition-all duration-200" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-4" class="transition-all duration-300">Produk</span>
             </a>
+            @endif
             <a href="{{route('admin.customers.index')}}" class="flex items-center space-x-3 py-2 px-3 rounded hover:bg-[#2333a0]">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A4 4 0 0 1 9 16h6a4 4 0 0 1 3.879 1.804M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
