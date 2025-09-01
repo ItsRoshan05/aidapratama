@@ -36,12 +36,13 @@ class ProductController extends Controller
             'name' => 'required|string|max:100',
             'sku' => 'nullable|string|max:50|unique:products,sku',
             'category' => 'nullable|string|max:50',
-            'harga_beli' => 'required|numeric',
+            'harga_beli' => 'nullabel|numeric',
             'harga_jual' => 'required|numeric',
             'stock' => 'integer|min:0',
             'unit' => 'string|max:20',
         ]);
         Product::create($request->all());
+        $data['harga_beli'] = $data['harga_beli'] ?? 0;
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
     }
 
