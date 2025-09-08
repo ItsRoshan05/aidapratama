@@ -90,6 +90,9 @@
                     </span>
                     <input type="number" name="products[{{ $idx }}][price]" min="0" step="0.01" value="{{ $item->price }}" placeholder="Harga" class="w-full border p-2 rounded focus:ring-2 focus:ring-blue-400">
                 </div>
+                <button type="button" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md opacity-100 transition remove-product-btn" title="Hapus">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
             </div>
             @endforeach
         </div>
@@ -186,7 +189,7 @@
                         </span>
                         <input type="number" name="products[${idx}][price]" min="0" step="0.01" placeholder="Harga" class="w-full border p-2 rounded focus:ring-2 focus:ring-blue-400">
                     </div>
-                    <button type="button" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition remove-product-btn" title="Hapus">
+                    <button class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md opacity-100 transition remove-product-btn" title="Hapus">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
